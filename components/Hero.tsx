@@ -213,11 +213,47 @@ export default function Hero() {
       </div>
 
       {/* ══════════════════════════════════
-          MOBILE LAYOUT — dos zonas apiladas
+          MOBILE LAYOUT — imagen arriba, texto abajo
           ══════════════════════════════════ */}
 
-      {/* Zona texto — arriba */}
-      <div className="md:hidden relative z-20 flex-none pt-20 pb-5 px-5 flex flex-col gap-5">
+      {/* Zona imagen — arriba, protagonista */}
+      <div className="md:hidden relative flex-none" style={{ height: '62dvh' }}>
+        {/* Gradiente top para blend con la nav */}
+        <div
+          className="absolute top-0 inset-x-0 h-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, #08060C 0%, transparent 100%)' }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={asset('/villarhero-cut.png')}
+          alt="Gonzalo Villar"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto select-none"
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'bottom center',
+            filter: 'drop-shadow(0 0 40px rgba(201,168,76,0.2))',
+          }}
+          draggable={false}
+        />
+        {/* Glow pies */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-28 z-[1] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.2) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+          }}
+        />
+        {/* Gradiente bottom para blend con texto */}
+        <div
+          className="absolute bottom-0 inset-x-0 h-20 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to top, #08060C 0%, transparent 100%)' }}
+        />
+      </div>
+
+      {/* Zona texto — debajo, flujo normal sin superposición */}
+      <div className="md:hidden relative z-20 flex-none px-5 pt-2 pb-10 flex flex-col gap-4">
+
+        {/* Nombre */}
         <div className="hero-enter leading-none" style={{ animationDelay: '0.1s' }}>
           <div style={{
             fontFamily: 'var(--font-cormorant)', fontWeight: 700,
@@ -235,11 +271,23 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero-enter" style={{ animationDelay: '0.18s' }}>
+        {/* Badge club */}
+        <div className="hero-enter" style={{ animationDelay: '0.16s' }}>
+          <div className="glass rounded-full px-3 py-1.5 inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />
+            <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase text-white/50">
+              Elche CF · LaLiga · 2026
+            </span>
+          </div>
+        </div>
+
+        {/* Próximo partido */}
+        <div className="hero-enter" style={{ animationDelay: '0.24s' }}>
           <NextMatchCard />
         </div>
 
-        <div className="hero-enter" style={{ animationDelay: '0.28s' }}>
+        {/* CTA */}
+        <div className="hero-enter" style={{ animationDelay: '0.34s' }}>
           <a href="#perfil" onClick={smoothScroll} className="group inline-flex items-center gap-3">
             <div
               className="w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0"
@@ -254,54 +302,7 @@ export default function Hero() {
             </span>
           </a>
         </div>
-      </div>
 
-      {/* Zona imagen — abajo */}
-      <div className="md:hidden relative flex-1 overflow-hidden" style={{ minHeight: '48dvh' }}>
-        {/* Blend con zona texto */}
-        <div
-          className="absolute top-0 inset-x-0 h-16 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, #08060C 0%, transparent 100%)' }}
-        />
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={asset('/villarhero-cut.png')}
-          alt="Gonzalo Villar"
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto select-none"
-          style={{
-            objectFit: 'contain',
-            objectPosition: 'bottom center',
-            filter: 'drop-shadow(0 0 40px rgba(201,168,76,0.18))',
-          }}
-          draggable={false}
-        />
-        {/* Quote sobre imagen */}
-        <div className="absolute bottom-14 left-5 right-5 z-10 pointer-events-none">
-          <p className="font-cormorant italic text-white/45 text-sm leading-relaxed">
-            "Talento nacido en Murcia, templado en Serie A, moldeado para el fútbol de élite."
-          </p>
-        </div>
-        {/* Badge club */}
-        <div className="absolute bottom-5 left-5 z-10">
-          <div className="glass rounded-full px-3 py-1.5 inline-flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />
-            <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase text-white/50">
-              Elche CF · LaLiga · 2026
-            </span>
-          </div>
-        </div>
-        {/* Glow pies */}
-        <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-24 z-[1] pointer-events-none"
-          style={{
-            background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.18) 0%, transparent 70%)',
-            filter: 'blur(20px)',
-          }}
-        />
-        <div
-          className="absolute bottom-0 inset-x-0 h-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to top, #08060C 0%, transparent 100%)' }}
-        />
       </div>
 
       {/* ══════════════════════════════════
