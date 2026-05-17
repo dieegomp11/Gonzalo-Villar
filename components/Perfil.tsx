@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { asset } from '@/lib/asset'
 
 const DATA_PILLS = [
   { label: 'Nacimiento', val: '23 mar. 1998' },
@@ -128,7 +129,7 @@ export default function Perfil() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/villarroma.jpg"
+                src={asset('/villarroma.jpg')}
                 alt="Gonzalo Villar con la AS Roma"
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
@@ -148,7 +149,7 @@ export default function Perfil() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/villarseleccion.jpg"
+                  src={asset('/villarseleccion.jpg')}
                   alt="Gonzalo Villar con la Selección Española"
                   className="absolute inset-0 w-full h-full object-cover object-top"
                 />
@@ -166,7 +167,7 @@ export default function Perfil() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/villargranada.jpg"
+                  src={asset('/villargranada.jpg')}
                   alt="Gonzalo Villar con el Granada CF"
                   className="absolute inset-0 w-full h-full object-cover object-top"
                 />
@@ -192,7 +193,7 @@ export default function Perfil() {
           <video
             ref={videoRef}
             className="w-full h-full object-cover"
-            src="/video.mp4"
+            src={asset('/video.mp4')}
             playsInline
             preload="metadata"
             onEnded={() => { setPlaying(false); setShowBtn(true) }}

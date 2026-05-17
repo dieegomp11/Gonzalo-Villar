@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '@/lib/asset'
 
 const COUNTERS = [
   { raw: '+250', num: 250,  suffix: '+', label: 'Partidos profesionales', decimals: 0 },
@@ -117,7 +118,7 @@ export default function Stats() {
               <div className="relative rounded-2xl overflow-hidden aspect-[3/4]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/villarstats_bw.jpg"
+                  src={asset('/villarstats_bw.jpg')}
                   alt="Gonzalo Villar"
                   className="absolute inset-0 w-full h-full object-cover object-top"
                 />
@@ -125,7 +126,7 @@ export default function Stats() {
               <div className="relative rounded-2xl overflow-hidden aspect-square self-end">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/villarstats2_bw.jpg"
+                  src={asset('/villarstats2_bw.jpg')}
                   alt="Gonzalo Villar entrenamiento"
                   className="absolute inset-0 w-full h-full object-cover object-top"
                 />

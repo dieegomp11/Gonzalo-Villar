@@ -1,4 +1,5 @@
 'use client'
+import { asset } from '@/lib/asset'
 
 const SOCIAL_LINKS = [
   {
@@ -158,7 +159,7 @@ export default function Footer() {
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src="/fluentia_clean.png"
+                  src={asset('/fluentia_clean.png')}
                   alt="Fluentia"
                   style={{ height: '14px', width: 'auto' }}
                 />

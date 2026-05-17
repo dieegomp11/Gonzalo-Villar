@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '@/lib/asset'
 
 const MOMENTOS = [
   {
@@ -197,7 +198,7 @@ export default function Momentos() {
               {/* Foto real */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={mo.photo}
+                src={asset((mo as any).photo)}
                 alt={mo.title}
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ objectPosition: (mo as any).objectPosition ?? 'center top' }}

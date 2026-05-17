@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '@/lib/asset'
 
 const SELECION_DATA = [
   { team: 'España Absoluta', partidos: 1,  goles: 0,  asist: 1, period: '2021' },
@@ -97,7 +98,7 @@ export default function Seleccion() {
             <div className="relative rounded-3xl overflow-hidden aspect-[16/9] mb-6">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/VillarSeleccion2.jpg"
+                src={asset('/VillarSeleccion2.jpg')}
                 alt="Gonzalo Villar con la Selección Española Sub-21"
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />

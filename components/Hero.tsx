@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { asset } from '@/lib/asset'
 
 const PARTICLES = [
   { size: 2,   top: '18%', left: '12%',  delay: '0s',    dur: '6s'  },
@@ -156,7 +157,7 @@ export default function Hero() {
           />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/villarhero-cut.png"
+            src={asset('/villarhero-cut.png')}
             alt="Gonzalo Villar"
             className="relative z-10 select-none"
             style={{
@@ -237,7 +238,7 @@ export default function Hero() {
                   <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
                     style={{ background: '#000' }}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/girona.png" alt="Girona FC" className="w-full h-full object-cover" />
+                    <img src={asset('/girona.png')} alt="Girona FC" className="w-full h-full object-cover" />
                   </div>
                   <span className="font-mono text-[0.48rem] text-white/50 tracking-wide uppercase">Girona FC</span>
                 </div>
@@ -251,7 +252,7 @@ export default function Hero() {
                 <div className="flex flex-col items-center gap-2 flex-1">
                   <div className="w-10 h-10 flex-shrink-0">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/elche.png" alt="Elche CF" className="w-full h-full object-contain" />
+                    <img src={asset('/elche.png')} alt="Elche CF" className="w-full h-full object-contain" />
                   </div>
                   <span className="font-mono text-[0.48rem] tracking-wide uppercase" style={{ color: 'rgba(201,168,76,0.7)' }}>Elche CF</span>
                 </div>

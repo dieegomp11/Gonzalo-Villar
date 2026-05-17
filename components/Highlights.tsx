@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { asset } from '@/lib/asset'
 
 const VIDEOS = [
   { src: '/golgranada.mp4',  label: 'Gol con el Granada CF',        tag: 'LaLiga'     },
@@ -18,7 +19,7 @@ function VideoTile({ src, label, tag, visible, delay, isActive, onPlay }: {
   const [showBtn, setShowBtn] = useState(true)
 
   useEffect(() => {
-    fetch(src, { method: 'HEAD' })
+    fetch(asset(src), { method: 'HEAD' })
       .then(r => { if (r.ok) setHasFile(true) })
       .catch(() => {})
   }, [src])
@@ -66,7 +67,7 @@ function VideoTile({ src, label, tag, visible, delay, isActive, onPlay }: {
       {hasFile && (
         <video
           ref={videoRef}
-          src={src}
+          src={asset(src)}
           className="absolute inset-0 w-full h-full object-cover"
           playsInline
           preload="metadata"

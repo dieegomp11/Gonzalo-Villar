@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '@/lib/asset'
 
 const CLUBS = [
   {
@@ -303,7 +304,7 @@ export default function Trayectoria() {
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={c.photos[pi]}
+                      src={asset(c.photos[pi])}
                       alt={`${c.name} — foto ${pi + 1}`}
                       className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
                     />

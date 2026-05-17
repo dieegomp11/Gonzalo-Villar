@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { asset } from '@/lib/asset'
 
 const SKILLS = [
   { name: 'Visión de juego',            value: 95, desc: 'Capacidad excepcional para leer el partido y encontrar líneas de pase imposibles.' },
@@ -71,7 +72,7 @@ export default function Habilidades() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/3]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/villartactica.png"
+                src={asset('/villartactica.png')}
                 alt="Gonzalo Villar — inteligencia táctica"
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
