@@ -105,16 +105,16 @@ export default function Momentos() {
       <div className="sticky top-0 min-h-[100dvh] bg-ink overflow-hidden flex flex-col md:flex-row">
 
         {/* ── LEFT: text panel ── */}
-        <div className="w-full md:w-[52%] flex-shrink-0 flex flex-col justify-center px-5 md:pl-16 lg:pl-24 md:pr-8 pt-20 md:pt-0 pb-4 md:pb-0">
+        <div className="w-full md:w-[52%] flex-shrink-0 flex flex-col justify-center px-5 md:pl-16 lg:pl-24 md:pr-8 pt-14 md:pt-0 pb-3 md:pb-0">
 
           {/* Section label */}
-          <div className="flex items-center gap-3 mb-10 md:mb-14">
+          <div className="flex items-center gap-3 mb-5 md:mb-14">
             <span className="block w-6 h-px" style={{ background: 'var(--accent)' }} />
             <span className="font-mono text-[0.6rem] tracking-[0.25em] text-white/40 uppercase">04 · Momentos Clave</span>
           </div>
 
           {/* Step indicators */}
-          <div className="flex items-center gap-2 mb-8">
+          <div className="flex items-center gap-2 mb-4 md:mb-8">
             {MOMENTOS.map((_, i) => (
               <div
                 key={i}
@@ -128,7 +128,7 @@ export default function Momentos() {
           </div>
 
           {/* Content — absolute stacked panels */}
-          <div className="relative min-h-[280px] md:min-h-[360px]">
+          <div className="relative min-h-[200px] md:min-h-[360px]">
             {MOMENTOS.map((mo, i) => (
               <div
                 key={mo.id}
@@ -168,7 +168,7 @@ export default function Momentos() {
           </div>
 
           {/* Counter */}
-          <div className="mt-8 flex items-baseline gap-2">
+          <div className="mt-4 md:mt-8 flex items-baseline gap-2">
             <span
               className="font-display text-5xl md:text-6xl leading-none"
               style={{ color: m.accent, opacity: 0.25 }}
@@ -182,7 +182,7 @@ export default function Momentos() {
         </div>
 
         {/* ── RIGHT: photo panel ── */}
-        <div className="w-full aspect-square md:flex-1 md:self-center relative overflow-hidden">
+        <div className="w-full flex-1 min-h-[32dvh] md:flex-1 md:self-center relative overflow-hidden">
           {MOMENTOS.map((mo, i) => (
             <div
               key={mo.id}
