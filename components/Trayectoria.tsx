@@ -300,7 +300,7 @@ export default function Trayectoria() {
                 {[0, 1].map(pi => (
                   <div
                     key={pi}
-                    className={`relative rounded-2xl overflow-hidden bg-black ${pi === 0 ? 'md:aspect-[3/4]' : 'md:aspect-[3/4] self-end'}`}
+                    className={`relative rounded-2xl overflow-hidden bg-black h-full ${pi === 0 ? 'md:aspect-[3/4]' : 'md:aspect-[3/4] md:self-end'}`}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

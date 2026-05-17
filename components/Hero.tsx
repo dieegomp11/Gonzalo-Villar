@@ -208,7 +208,7 @@ export default function Hero() {
           </p>
 
           {/* Próximo partido */}
-          <div className="hero-enter" style={{ animationDelay: '0.34s' }}>
+          <div className="hero-enter absolute bottom-32 left-0 md:static md:bottom-auto md:left-auto z-30" style={{ animationDelay: '0.34s' }}>
             <div
               className="inline-block rounded-2xl px-4 py-3.5 max-w-[260px]"
               style={{
