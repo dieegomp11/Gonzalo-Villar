@@ -16,16 +16,90 @@ const PARTICLES = [
   { size: 2,   top: '35%', left: '82%',  delay: '1s',    dur: '9s'  },
 ]
 
+function NextMatchCard() {
+  return (
+    <div
+      className="inline-block rounded-2xl px-4 py-3.5 max-w-[260px]"
+      style={{
+        background: 'rgba(13,11,30,0.65)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        border: '1px solid rgba(201,168,76,0.2)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+      }}
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <span
+          className="w-1.5 h-1.5 rounded-full block flex-shrink-0"
+          style={{ background: 'var(--accent)', animation: 'accentPulse 2s ease-in-out infinite' }}
+        />
+        <span className="font-mono text-[0.52rem] tracking-[0.2em] text-white/40 uppercase">
+          Próximo partido · LaLiga EA Sports
+        </span>
+      </div>
+
+      <div className="flex items-center justify-between mb-4">
+        <div className="flex flex-col items-center gap-2 flex-1">
+          <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ background: '#000' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset('/girona.png')} alt="Girona FC" className="w-full h-full object-cover" />
+          </div>
+          <span className="font-mono text-[0.48rem] text-white/50 tracking-wide uppercase">Girona FC</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 px-3 flex-shrink-0">
+          <span className="font-display text-xl leading-none" style={{ color: 'rgba(201,168,76,0.3)' }}>VS</span>
+        </div>
+        <div className="flex flex-col items-center gap-2 flex-1">
+          <div className="w-10 h-10 flex-shrink-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset('/elche.png')} alt="Elche CF" className="w-full h-full object-contain" />
+          </div>
+          <span className="font-mono text-[0.48rem] tracking-wide uppercase" style={{ color: 'rgba(201,168,76,0.7)' }}>Elche CF</span>
+        </div>
+      </div>
+
+      <div className="h-px w-full mb-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
+
+      <div className="flex items-center justify-between">
+        {[
+          { icon: 'cal', txt: 'Sáb. 23 mayo' },
+          { icon: 'clk', txt: '21:00 h' },
+          { icon: 'pin', txt: 'Montilivi' },
+        ].map(d => (
+          <div key={d.txt} className="flex items-center gap-1.5">
+            {d.icon === 'cal' && (
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
+                <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+              </svg>
+            )}
+            {d.icon === 'clk' && (
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            )}
+            {d.icon === 'pin' && (
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            )}
+            <span className="font-mono text-[0.52rem] text-white/50 tracking-wide">{d.txt}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Hero() {
   const sectionRef  = useRef<HTMLElement>(null)
   const colRightRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const init = async () => {
+      if (window.innerWidth < 768) return
       const { gsap } = await import('gsap')
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
       gsap.registerPlugin(ScrollTrigger)
-
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: 'top top',
@@ -44,13 +118,18 @@ export default function Hero() {
     }
   }, [])
 
+  const smoothScroll = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    document.querySelector('#perfil')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-[100dvh] bg-ink overflow-hidden"
+      className="relative bg-ink overflow-hidden min-h-[100dvh] flex flex-col md:block"
     >
-      {/* ── Fondo: aurora blobs ── */}
+      {/* ── Background ── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div
           className="absolute top-[-20%] left-[-12%] w-[72vw] h-[72vw] rounded-full"
@@ -73,10 +152,7 @@ export default function Hero() {
             animation: 'auroraFloat2 20s ease-in-out infinite',
           }}
         />
-
-        {/* Rayo de luz diagonal — barre la pantalla */}
         <div className="absolute inset-0 overflow-hidden">
-          {/* Rayo principal — ancho, suave */}
           <div
             className="absolute top-0 bottom-0 left-0"
             style={{
@@ -85,7 +161,6 @@ export default function Hero() {
               animation: 'lightSweep 7s cubic-bezier(0.4, 0, 0.6, 1) 1.5s infinite',
             }}
           />
-          {/* Rayo secundario — fino y brillante */}
           <div
             className="absolute top-0 bottom-0 left-0"
             style={{
@@ -95,8 +170,6 @@ export default function Hero() {
             }}
           />
         </div>
-
-        {/* Grid de líneas finas */}
         <svg
           className="absolute inset-0 w-full h-full opacity-[0.03]"
           viewBox="0 0 1200 800"
@@ -108,8 +181,6 @@ export default function Hero() {
           <line x1="0" y1="0" x2="1200" y2="800" stroke="white" strokeWidth="0.5" strokeDasharray="4 12" />
           <line x1="1200" y1="0" x2="0" y2="800" stroke="white" strokeWidth="0.5" strokeDasharray="4 12" />
         </svg>
-
-        {/* Partículas flotantes */}
         {PARTICLES.map((p, i) => (
           <span
             key={i}
@@ -141,10 +212,106 @@ export default function Hero() {
         </span>
       </div>
 
-      {/* ── Foto del jugador — absolute ── */}
+      {/* ══════════════════════════════════
+          MOBILE LAYOUT — dos zonas apiladas
+          ══════════════════════════════════ */}
+
+      {/* Zona texto — arriba */}
+      <div className="md:hidden relative z-20 flex-none pt-20 pb-5 px-5 flex flex-col gap-5">
+        <div className="hero-enter leading-none" style={{ animationDelay: '0.1s' }}>
+          <div style={{
+            fontFamily: 'var(--font-cormorant)', fontWeight: 700,
+            fontSize: 'clamp(3.4rem, 15vw, 5rem)',
+            color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 0.88,
+          }}>
+            GONZALO
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-cormorant)', fontWeight: 300,
+            fontSize: 'clamp(3.4rem, 15vw, 5rem)',
+            color: 'white', letterSpacing: '0.02em', lineHeight: 0.88,
+          }}>
+            VILLAR
+          </div>
+        </div>
+
+        <div className="hero-enter" style={{ animationDelay: '0.18s' }}>
+          <NextMatchCard />
+        </div>
+
+        <div className="hero-enter" style={{ animationDelay: '0.28s' }}>
+          <a href="#perfil" onClick={smoothScroll} className="group inline-flex items-center gap-3">
+            <div
+              className="w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0"
+              style={{ borderColor: 'rgba(201,168,76,0.45)', background: 'rgba(201,168,76,0.08)' }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--accent)' }}>
+                <path d="M12 5v14M5 12l7 7 7-7" />
+              </svg>
+            </div>
+            <span className="font-display text-lg tracking-widest leading-none" style={{ color: 'var(--accent)' }}>
+              Conoce mi historia
+            </span>
+          </a>
+        </div>
+      </div>
+
+      {/* Zona imagen — abajo */}
+      <div className="md:hidden relative flex-1 overflow-hidden" style={{ minHeight: '48dvh' }}>
+        {/* Blend con zona texto */}
+        <div
+          className="absolute top-0 inset-x-0 h-16 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to bottom, #08060C 0%, transparent 100%)' }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={asset('/villarhero-cut.png')}
+          alt="Gonzalo Villar"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 h-full w-auto select-none"
+          style={{
+            objectFit: 'contain',
+            objectPosition: 'bottom center',
+            filter: 'drop-shadow(0 0 40px rgba(201,168,76,0.18))',
+          }}
+          draggable={false}
+        />
+        {/* Quote sobre imagen */}
+        <div className="absolute bottom-14 left-5 right-5 z-10 pointer-events-none">
+          <p className="font-cormorant italic text-white/45 text-sm leading-relaxed">
+            "Talento nacido en Murcia, templado en Serie A, moldeado para el fútbol de élite."
+          </p>
+        </div>
+        {/* Badge club */}
+        <div className="absolute bottom-5 left-5 z-10">
+          <div className="glass rounded-full px-3 py-1.5 inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />
+            <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase text-white/50">
+              Elche CF · LaLiga · 2026
+            </span>
+          </div>
+        </div>
+        {/* Glow pies */}
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-24 z-[1] pointer-events-none"
+          style={{
+            background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.18) 0%, transparent 70%)',
+            filter: 'blur(20px)',
+          }}
+        />
+        <div
+          className="absolute bottom-0 inset-x-0 h-24 z-10 pointer-events-none"
+          style={{ background: 'linear-gradient(to top, #08060C 0%, transparent 100%)' }}
+        />
+      </div>
+
+      {/* ══════════════════════════════════
+          DESKTOP LAYOUT — layout actual
+          ══════════════════════════════════ */}
+
+      {/* Foto del jugador */}
       <div
         ref={colRightRef}
-        className="absolute bottom-0 right-0 md:right-[2%] z-10 pointer-events-none hero-enter-right"
+        className="hidden md:block absolute bottom-0 right-0 md:right-[2%] z-10 pointer-events-none hero-enter-right"
         style={{ animationDelay: '0.2s' }}
       >
         <div className="relative" style={{ height: 'clamp(600px, 96dvh, 1100px)' }}>
@@ -172,11 +339,10 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Contenido texto — izquierda ── */}
-      <div className="relative z-20 min-h-[100dvh] max-w-7xl mx-auto px-5 md:px-10 flex items-center pt-24 pb-20 md:pt-0 md:pb-0">
-        <div className="flex flex-col gap-6 md:gap-7 py-8 md:py-24 w-full md:max-w-[52%]">
+      {/* Contenido texto */}
+      <div className="hidden md:flex relative z-20 min-h-[100dvh] max-w-7xl mx-auto px-10 items-center">
+        <div className="flex flex-col gap-7 py-24 w-full max-w-[52%]">
 
-          {/* Nombre */}
           <div className="hero-enter leading-none" style={{ animationDelay: '0.1s' }}>
             <div style={{
               fontFamily: 'var(--font-cormorant)', fontWeight: 700,
@@ -194,7 +360,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Quote */}
           <p
             className="hero-enter font-cormorant italic leading-snug max-w-[420px]"
             style={{
@@ -204,102 +369,17 @@ export default function Hero() {
             }}
           >
             "Talento nacido en Murcia, templado en Serie A,
-            <br className="hidden md:block" /> moldeado para el fútbol de élite."
+            <br /> moldeado para el fútbol de élite."
           </p>
 
-          {/* Próximo partido */}
-          <div className="hero-enter absolute bottom-32 left-0 md:static md:bottom-auto md:left-auto z-30" style={{ animationDelay: '0.34s' }}>
-            <div
-              className="inline-block rounded-2xl px-4 py-3.5 max-w-[260px]"
-              style={{
-                background: 'rgba(13,11,30,0.65)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                border: '1px solid rgba(201,168,76,0.2)',
-                boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
-              }}
-            >
-              {/* Header tarjeta */}
-              <div className="flex items-center gap-2 mb-4">
-                <span
-                  className="w-1.5 h-1.5 rounded-full block flex-shrink-0"
-                  style={{ background: 'var(--accent)', animation: 'accentPulse 2s ease-in-out infinite' }}
-                />
-                <span className="font-mono text-[0.52rem] tracking-[0.2em] text-white/40 uppercase">
-                  Próximo partido · LaLiga EA Sports
-                </span>
-              </div>
-
-              {/* Equipos */}
-              <div className="flex items-center justify-between mb-4">
-
-                {/* Girona */}
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
-                    style={{ background: '#000' }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={asset('/girona.png')} alt="Girona FC" className="w-full h-full object-cover" />
-                  </div>
-                  <span className="font-mono text-[0.48rem] text-white/50 tracking-wide uppercase">Girona FC</span>
-                </div>
-
-                {/* VS */}
-                <div className="flex flex-col items-center gap-1 px-3 flex-shrink-0">
-                  <span className="font-display text-xl leading-none" style={{ color: 'rgba(201,168,76,0.3)' }}>VS</span>
-                </div>
-
-                {/* Elche */}
-                <div className="flex flex-col items-center gap-2 flex-1">
-                  <div className="w-10 h-10 flex-shrink-0">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={asset('/elche.png')} alt="Elche CF" className="w-full h-full object-contain" />
-                  </div>
-                  <span className="font-mono text-[0.48rem] tracking-wide uppercase" style={{ color: 'rgba(201,168,76,0.7)' }}>Elche CF</span>
-                </div>
-
-              </div>
-
-              {/* Separador */}
-              <div className="h-px w-full mb-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
-
-              {/* Info partido */}
-              <div className="flex items-center justify-between">
-                {[
-                  { icon: 'cal', txt: 'Sáb. 23 mayo' },
-                  { icon: 'clk', txt: '21:00 h' },
-                  { icon: 'pin', txt: 'Montilivi' },
-                ].map(d => (
-                  <div key={d.txt} className="flex items-center gap-1.5">
-                    {d.icon === 'cal' && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
-                        <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-                      </svg>
-                    )}
-                    {d.icon === 'clk' && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
-                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                      </svg>
-                    )}
-                    {d.icon === 'pin' && (
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-white/35 flex-shrink-0">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                      </svg>
-                    )}
-                    <span className="font-mono text-[0.52rem] text-white/50 tracking-wide">{d.txt}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="hero-enter" style={{ animationDelay: '0.34s' }}>
+            <NextMatchCard />
           </div>
 
-          {/* CTA */}
           <div className="hero-enter" style={{ animationDelay: '0.46s' }}>
             <a
               href="#perfil"
-              onClick={e => {
-                e.preventDefault()
-                document.querySelector('#perfil')?.scrollIntoView({ behavior: 'smooth' })
-              }}
+              onClick={smoothScroll}
               className="cta-wrap group inline-flex items-center gap-4"
             >
               <div
@@ -321,7 +401,6 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Club actual */}
           <div className="hero-enter" style={{ animationDelay: '0.56s' }}>
             <div className="glass rounded-full px-4 py-2 inline-flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />

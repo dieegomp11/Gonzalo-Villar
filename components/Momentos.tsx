@@ -182,7 +182,7 @@ export default function Momentos() {
         </div>
 
         {/* ── RIGHT: photo panel ── */}
-        <div className="w-full aspect-square md:aspect-auto md:flex-1 relative overflow-hidden md:min-h-0">
+        <div className="w-full aspect-square md:flex-1 md:self-center relative overflow-hidden">
           {MOMENTOS.map((mo, i) => (
             <div
               key={mo.id}
