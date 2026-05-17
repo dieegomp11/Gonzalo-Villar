@@ -16,10 +16,22 @@ const PARTICLES = [
   { size: 2,   top: '35%', left: '82%',  delay: '1s',    dur: '9s'  },
 ]
 
-function NextMatchCard() {
+function NextMatchCard({ compact = false }: { compact?: boolean }) {
+  const logoSize   = compact ? 'w-7 h-7'   : 'w-10 h-10'
+  const maxW       = compact ? 'max-w-[220px]' : 'max-w-[260px]'
+  const px         = compact ? 'px-3'      : 'px-4'
+  const py         = compact ? 'py-2.5'    : 'py-3.5'
+  const mb1        = compact ? 'mb-2.5'    : 'mb-4'
+  const mb2        = compact ? 'mb-2.5'    : 'mb-4'
+  const mb3        = compact ? 'mb-2'      : 'mb-3'
+  const vsSize     = compact ? 'text-base' : 'text-xl'
+  const labelSize  = compact ? 'text-[0.44rem]' : 'text-[0.48rem]'
+  const infoSize   = compact ? 'text-[0.44rem]' : 'text-[0.52rem]'
+  const headerSize = compact ? 'text-[0.44rem]' : 'text-[0.52rem]'
+
   return (
     <div
-      className="inline-block rounded-2xl px-4 py-3.5 max-w-[260px]"
+      className={`inline-block rounded-2xl ${px} ${py} ${maxW}`}
       style={{
         background: 'rgba(13,11,30,0.65)',
         backdropFilter: 'blur(16px)',
@@ -28,37 +40,37 @@ function NextMatchCard() {
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
       }}
     >
-      <div className="flex items-center gap-2 mb-4">
+      <div className={`flex items-center gap-2 ${mb1}`}>
         <span
           className="w-1.5 h-1.5 rounded-full block flex-shrink-0"
           style={{ background: 'var(--accent)', animation: 'accentPulse 2s ease-in-out infinite' }}
         />
-        <span className="font-mono text-[0.52rem] tracking-[0.2em] text-white/40 uppercase">
+        <span className={`font-mono ${headerSize} tracking-[0.2em] text-white/40 uppercase`}>
           Próximo partido · LaLiga EA Sports
         </span>
       </div>
 
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex flex-col items-center gap-2 flex-1">
-          <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ background: '#000' }}>
+      <div className={`flex items-center justify-between ${mb2}`}>
+        <div className="flex flex-col items-center gap-1.5 flex-1">
+          <div className={`${logoSize} rounded-full overflow-hidden flex-shrink-0`} style={{ background: '#000' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset('/girona.png')} alt="Girona FC" className="w-full h-full object-cover" />
           </div>
-          <span className="font-mono text-[0.48rem] text-white/50 tracking-wide uppercase">Girona FC</span>
+          <span className={`font-mono ${labelSize} text-white/50 tracking-wide uppercase`}>Girona FC</span>
         </div>
         <div className="flex flex-col items-center gap-1 px-3 flex-shrink-0">
-          <span className="font-display text-xl leading-none" style={{ color: 'rgba(201,168,76,0.3)' }}>VS</span>
+          <span className={`font-display ${vsSize} leading-none`} style={{ color: 'rgba(201,168,76,0.3)' }}>VS</span>
         </div>
-        <div className="flex flex-col items-center gap-2 flex-1">
-          <div className="w-10 h-10 flex-shrink-0">
+        <div className="flex flex-col items-center gap-1.5 flex-1">
+          <div className={`${logoSize} flex-shrink-0`}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset('/elche.png')} alt="Elche CF" className="w-full h-full object-contain" />
           </div>
-          <span className="font-mono text-[0.48rem] tracking-wide uppercase" style={{ color: 'rgba(201,168,76,0.7)' }}>Elche CF</span>
+          <span className={`font-mono ${labelSize} tracking-wide uppercase`} style={{ color: 'rgba(201,168,76,0.7)' }}>Elche CF</span>
         </div>
       </div>
 
-      <div className="h-px w-full mb-3" style={{ background: 'rgba(255,255,255,0.06)' }} />
+      <div className={`h-px w-full ${mb3}`} style={{ background: 'rgba(255,255,255,0.06)' }} />
 
       <div className="flex items-center justify-between">
         {[
@@ -82,7 +94,7 @@ function NextMatchCard() {
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
               </svg>
             )}
-            <span className="font-mono text-[0.52rem] text-white/50 tracking-wide">{d.txt}</span>
+            <span className={`font-mono ${infoSize} text-white/50 tracking-wide`}>{d.txt}</span>
           </div>
         ))}
       </div>
@@ -127,7 +139,7 @@ export default function Hero() {
     <section
       ref={sectionRef}
       id="hero"
-      className="relative bg-ink overflow-hidden min-h-[100dvh] flex flex-col md:block"
+      className="relative bg-ink overflow-hidden md:min-h-[100dvh] flex flex-col md:block"
     >
       {/* ── Background ── */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -213,16 +225,39 @@ export default function Hero() {
       </div>
 
       {/* ══════════════════════════════════
-          MOBILE LAYOUT — imagen arriba, texto abajo
+          MOBILE LAYOUT — nombre arriba, imagen centro, datos abajo
           ══════════════════════════════════ */}
 
-      {/* Zona imagen — arriba, protagonista */}
-      <div className="md:hidden relative flex-none" style={{ height: '62dvh' }}>
-        {/* Gradiente top para blend con la nav */}
-        <div
-          className="absolute top-0 inset-x-0 h-24 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to bottom, #08060C 0%, transparent 100%)' }}
-        />
+      {/* 1. Nombre y badge — arriba, sobre la nav */}
+      <div className="md:hidden relative z-20 flex-none px-5 pt-[68px] pb-2 flex flex-col gap-2">
+        <div className="hero-enter leading-none" style={{ animationDelay: '0.1s' }}>
+          <div style={{
+            fontFamily: 'var(--font-cormorant)', fontWeight: 700,
+            fontSize: 'clamp(3rem, 13vw, 4.2rem)',
+            color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 0.88,
+          }}>
+            GONZALO
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-cormorant)', fontWeight: 300,
+            fontSize: 'clamp(3rem, 13vw, 4.2rem)',
+            color: 'white', letterSpacing: '0.02em', lineHeight: 0.88,
+          }}>
+            VILLAR
+          </div>
+        </div>
+        <div className="hero-enter" style={{ animationDelay: '0.14s' }}>
+          <div className="glass rounded-full px-3 py-1.5 inline-flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />
+            <span className="font-mono text-[0.46rem] tracking-[0.12em] uppercase text-white/50">
+              Elche CF · LaLiga · 2026
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Imagen — centro */}
+      <div className="md:hidden relative flex-none" style={{ height: '42dvh' }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={asset('/villarhero-cut.png')}
@@ -237,72 +272,39 @@ export default function Hero() {
         />
         {/* Glow pies */}
         <div
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-28 z-[1] pointer-events-none"
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2/3 h-20 z-[1] pointer-events-none"
           style={{
-            background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.2) 0%, transparent 70%)',
-            filter: 'blur(20px)',
+            background: 'radial-gradient(ellipse at 50% 100%, rgba(201,168,76,0.18) 0%, transparent 70%)',
+            filter: 'blur(18px)',
           }}
         />
-        {/* Gradiente bottom para blend con texto */}
+        {/* Blend bottom */}
         <div
-          className="absolute bottom-0 inset-x-0 h-20 z-10 pointer-events-none"
+          className="absolute bottom-0 inset-x-0 h-16 z-10 pointer-events-none"
           style={{ background: 'linear-gradient(to top, #08060C 0%, transparent 100%)' }}
         />
       </div>
 
-      {/* Zona texto — debajo, flujo normal sin superposición */}
-      <div className="md:hidden relative z-20 flex-none px-5 pt-2 pb-10 flex flex-col gap-4">
-
-        {/* Nombre */}
-        <div className="hero-enter leading-none" style={{ animationDelay: '0.1s' }}>
-          <div style={{
-            fontFamily: 'var(--font-cormorant)', fontWeight: 700,
-            fontSize: 'clamp(3.4rem, 15vw, 5rem)',
-            color: 'var(--accent)', letterSpacing: '0.02em', lineHeight: 0.88,
-          }}>
-            GONZALO
-          </div>
-          <div style={{
-            fontFamily: 'var(--font-cormorant)', fontWeight: 300,
-            fontSize: 'clamp(3.4rem, 15vw, 5rem)',
-            color: 'white', letterSpacing: '0.02em', lineHeight: 0.88,
-          }}>
-            VILLAR
-          </div>
+      {/* 3. Card y CTA — abajo */}
+      <div className="md:hidden relative z-20 flex-none px-5 pt-2 pb-8 flex flex-col gap-3">
+        <div className="hero-enter" style={{ animationDelay: '0.22s' }}>
+          <NextMatchCard compact />
         </div>
-
-        {/* Badge club */}
-        <div className="hero-enter" style={{ animationDelay: '0.16s' }}>
-          <div className="glass rounded-full px-3 py-1.5 inline-flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full block" style={{ background: 'var(--accent)' }} />
-            <span className="font-mono text-[0.48rem] tracking-[0.12em] uppercase text-white/50">
-              Elche CF · LaLiga · 2026
-            </span>
-          </div>
-        </div>
-
-        {/* Próximo partido */}
-        <div className="hero-enter" style={{ animationDelay: '0.24s' }}>
-          <NextMatchCard />
-        </div>
-
-        {/* CTA */}
-        <div className="hero-enter" style={{ animationDelay: '0.34s' }}>
+        <div className="hero-enter" style={{ animationDelay: '0.32s' }}>
           <a href="#perfil" onClick={smoothScroll} className="group inline-flex items-center gap-3">
             <div
-              className="w-9 h-9 rounded-full border flex items-center justify-center flex-shrink-0"
+              className="w-8 h-8 rounded-full border flex items-center justify-center flex-shrink-0"
               style={{ borderColor: 'rgba(201,168,76,0.45)', background: 'rgba(201,168,76,0.08)' }}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--accent)' }}>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ color: 'var(--accent)' }}>
                 <path d="M12 5v14M5 12l7 7 7-7" />
               </svg>
             </div>
-            <span className="font-display text-lg tracking-widest leading-none" style={{ color: 'var(--accent)' }}>
+            <span className="font-display text-base tracking-widest leading-none" style={{ color: 'var(--accent)' }}>
               Conoce mi historia
             </span>
           </a>
         </div>
-
       </div>
 
       {/* ══════════════════════════════════
